@@ -43,17 +43,17 @@ Estimate of time needed to complete: 45 minutes
 
 Start time: 12pm
 
-Finish time: _____
+Finish time: 12:55pm
 
-Actual time needed to complete: _____
+Actual time needed to complete: 1 hour 10mins
 
 
 
 ## Number and name of feature: #3 Weather
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: 1 hour 
 
-Start time: _____
+Start time: 12:56pm
 
 Finish time: _____
 
