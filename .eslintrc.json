@@ -1,0 +1,66 @@
+Skip to content
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@caitleigh 
+Learn Git and GitHub without any code!
+Using the Hello World guide, you’ll start a branch, write comments, and open a pull request.
+
+
+codefellows
+/
+seattle-301d55
+7
+014
+ Code Issues 0 Pull requests 4 Actions Projects 0 Wiki Security Insights
+seattle-301d55/.eslintrc.json
+@johncokos johncokos Initial Repo Setup for 301d55
+f987ab7 15 days ago
+30 lines (30 sloc)  718 Bytes
+  
+{
+  "globals" : {
+    "Handlebars": true,
+    "$": true
+  },
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
+  "env": {
+    "browser": true,
+    "jquery": true,
+    "node": true,
+    "es6": true,
+    "jest": true
+  },
+  "rules": {
+    "eqeqeq": ["error", "always"],
+    "no-template-curly-in-string": "error",
+    "no-console": "off",
+    "no-undefined": "off",
+    "indent": ["error", 2],
+    "quotes": ["warn", "single", {"allowTemplateLiterals": true}],
+    "no-multi-spaces": ["warn", {"exceptions": { "VariableDeclarator": true }}],
+    "no-trailing-spaces": "warn",
+    "new-cap": "warn",
+    "no-redeclare": ["error", { "builtinGlobals": true }],
+    "eol-last": "error"
+  }
+}
+© 2020 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
