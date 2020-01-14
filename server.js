@@ -12,7 +12,8 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 
 //Routes//
-//LOCATIONS//
+
+//////LOCATION///////
 app.get('/location', (request, response) => {
   let city = request.query.city;
   const geoData = require('./data/geo.json');
@@ -28,6 +29,23 @@ function Location(city, locationData){
   this.formatted_query = locationData.display_name;
   this.latitude = locationData.lat;
   this.longitude = locationData.lon;
+}
+
+/////Weather//////
+
+app.get('/weather', (request, response)=> {
+  let city = request.query.city;
+  const geoWeather = require('./data/darksky.json');
+  let geoWeatherDailyData = geoWeather.daily.data;
+
+  let weather = new Weather(city, geoWeatherDailyData)
+
+  response.status(200).send(weather);
+})
+
+function Weather(city, locationWeather) {
+  this.forecast = locationWeather.summary;
+  this.time = new Date(locationWeather.time);
 }
 
 //turn it on//
