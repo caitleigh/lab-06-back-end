@@ -1,27 +1,3 @@
-Skip to content
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@caitleigh 
-Learn Git and GitHub without any code!
-Using the Hello World guide, you’ll start a branch, write comments, and open a pull request.
-
-
-codefellows
-/
-seattle-301d55
-7
-014
- Code Issues 0 Pull requests 4 Actions Projects 0 Wiki Security Insights
-seattle-301d55/.gitignore
-@johncokos johncokos Initial commit
-1d59eb7 27 days ago
-104 lines (76 sloc)  1.57 KB
-  
 # Logs
 logs
 *.log
@@ -126,15 +102,3 @@ dist
 
 # TernJS port file
 .tern-port
-© 2020 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Help
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
