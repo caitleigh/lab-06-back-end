@@ -70,21 +70,21 @@ Actual time needed to complete: 1 hour 15 minutes
 
 Estimate of time needed to complete: 1 hour
 
-Start time: 
+Start time: 9:55
 
-Finish time: 
+Finish time: 11:08
 
-Actual time needed to complete: 
+Actual time needed to complete: 13 minutes 
 
-### Number and name of feature: #6
+### Number and name of feature: #6 Adding geocode API 
 
 Estimate of time needed to complete: 1 hour
 
-Start time: 
+Start time: 11:10am
 
-Finish time: 
+Finish time: 11:45am
 
-Actual time needed to complete: 
+Actual time needed to complete: 35 minutes
 
 ### Number and name of feature: #7
 
