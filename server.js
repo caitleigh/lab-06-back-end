@@ -16,7 +16,6 @@ app.use(cors());
 // app.get('/location', locationHandler)
 // app.get('/weather', weatherHandler);
 // app.use(errorHandler);
-// app.use('*', error);
 
 //////LOCATION///////
 app.get('/location', (request, response) => {
@@ -24,8 +23,6 @@ app.get('/location', (request, response) => {
     const city = request.query.city;
     let key = process.env.GEOCODE_API_KEY;
     const url = `https://us1.locationiq.com/v1/search.php?key=${key}&q=${city}&format=json&limit=1`;
-
-    // const geoData = require('./data/geo.json');
 
     superagent.get(url)
       .then( data => {
@@ -51,8 +48,6 @@ app.get('/weather', (request, response)=> {
   try {
     // let city = request.query.city;
     const geoWeather = require('./data/darksky.json');
-    // geoWeather.daily.data.forEach(day => {
-    //   dailySummaries.push(new DailySummaries(day));
     let dailySummaries = geoWeather.daily.data;
     const data = dailySummaries.map(day => {
       return new DailySummaries(day);
@@ -73,9 +68,9 @@ function errorHandler(string, response){
   response.status(500).send(string)
 }
 
-// function error(request, response) {
-//   response.status(404).send('???')
-// }
+function errorNoResponse(request, response) {
+  response.status(404).send('???')
+}
 
 //turn it on//
 app.listen(PORT, () => {
