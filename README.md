@@ -12,7 +12,7 @@
 ## Architecture
 <!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
 
-## Change Log
+
 <!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an examples:
 
 01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource.
@@ -23,8 +23,8 @@ Jan 14, 2020 - buddy programing with Cindy Weiss(https://github.com/cindyweiss) 
 -->
 
 
-
-## Number and name of feature: #1 Repo set up
+## Change Log
+### Number and name of feature: #1 Repo set up
 
 Estimate of time needed to complete: 30
 
@@ -34,10 +34,7 @@ Finish time: 9:45am
 
 Actual time needed to complete: 30min
 
-
-
-
-## Number and name of feature: #2 Locations
+### Number and name of feature: #2 Locations
 
 Estimate of time needed to complete: 45 minutes
 
@@ -47,24 +44,22 @@ Finish time: 12:55pm
 
 Actual time needed to complete: 1 hour 10mins
 
-
-
-## Number and name of feature: #3 Weather
+### Number and name of feature: #3 Weather
 
 Estimate of time needed to complete: 1 hour 
 
 Start time: 12:56pm
 
-Finish time: _____
+Finish time: 5:30
 
-Actual time needed to complete: ____
+Actual time needed to complete: about an hour (minus lecture time)
 
-## Number and name of feature: #4 Error 
+### Number and name of feature: #4 Errors
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: 1 hour
 
-Start time: _____
+Start time: 5:30pm - 6pm
 
-Finish time: _____
+Finish time: 9am -9:48am (1/15/2020)
 
-Actual time needed to complete: _____
+Actual time needed to complete: 1 hour 15 minutes
