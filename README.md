@@ -20,6 +20,8 @@
 ## Credits and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
 Jan 14, 2020 - buddy programing with Cindy Weiss(https://github.com/cindyweiss) & Andrew Kyllo (https://github.com/kyllo34)
+
+Jan 15, 2020 - buddy programming with Ally Reyes (https://github.com/areyes986)
 -->
 
 
@@ -63,3 +65,43 @@ Start time: 5:30pm - 6pm
 Finish time: 9am -9:48am (1/15/2020)
 
 Actual time needed to complete: 1 hour 15 minutes
+
+### Number and name of feature: #5 Data Formatting -- adding .map
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 
+
+Finish time: 
+
+Actual time needed to complete: 
+
+### Number and name of feature: #6
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 
+
+Finish time: 
+
+Actual time needed to complete: 
+
+### Number and name of feature: #7
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 
+
+Finish time: 
+
+Actual time needed to complete: 
+
+### Number and name of feature: #8
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 
+
+Finish time: 
+
+Actual time needed to complete: 
