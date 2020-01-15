@@ -32,20 +32,22 @@ function Location(city, locationData){
 }
 
 /////Weather//////
-
+const dailySummaries = []
 app.get('/weather', (request, response)=> {
-  let city = request.query.city;
+//   let city = request.query.city;
   const geoWeather = require('./data/darksky.json');
-  let geoWeatherDailyData = geoWeather.daily.data;
-
-  let weather = new Weather(city, geoWeatherDailyData)
-
-  response.status(200).send(weather);
+  geoWeather.daily.data.forEach(day => {
+    dailySummaries.push(new DailySummaries(day));
+  });
+  //   let geoWeatherDailyData = geoWeather.daily.data;
+  //   let weather = new Weather(city, geoWeatherDailyData)
+  response.status(200).send(dailySummaries);
 })
 
-function Weather(city, locationWeather) {
-  this.forecast = locationWeather.summary;
-  this.time = new Date(locationWeather.time);
+function DailySummaries(day) {
+  this.forecast = day.summary;
+  this.time = new Date(day.time * 1000).toString().slice(0,15);
+  dailySummaries.push(this);
 }
 
 //turn it on//
