@@ -12,17 +12,23 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 
 //Routes//
+// app.get('/location', locationHandler)
+// app.get('/weather', weatherHandler);
+app.use(errorHandler);
 
 //////LOCATION///////
-app.get('/location', (request, response) => {
-  let city = request.query.city;
-  const geoData = require('./data/geo.json');
-  let geoDataResults = geoData[0];
+app.get('location', (request, response) => {
+  try {
+    const city = request.query.city;
+    const geoData = require('./data/geo.json');
+    const geoDataResults = geoData[0];
+    const location = new Location(city, geoDataResults)
+    response.status(200).send(location);
 
-  let location = new Location(city, geoDataResults)
-
-  response.status(200).send(location);
-})
+  } catch(error) {
+    errorHandler('So sorry, something went wrong.', request, response);
+  }
+});
 
 function Location(city, locationData){
   this.search_query = city;
@@ -35,19 +41,26 @@ function Location(city, locationData){
 const dailySummaries = []
 app.get('/weather', (request, response)=> {
 //   let city = request.query.city;
-  const geoWeather = require('./data/darksky.json');
-  geoWeather.daily.data.forEach(day => {
-    dailySummaries.push(new DailySummaries(day));
-  });
-  //   let geoWeatherDailyData = geoWeather.daily.data;
-  //   let weather = new Weather(city, geoWeatherDailyData)
-  response.status(200).send(dailySummaries);
-})
+  try {
+    const geoWeather = require('./data/darksky.json');
+    geoWeather.daily.data.forEach(day => {
+      dailySummaries.push(new DailySummaries(day));
+
+      response.status(200).send(dailySummaries);
+    })
+  } catch (error){
+    errorHandler('So sorry, something went wrong.', request, response);
+  }
+});
 
 function DailySummaries(day) {
   this.forecast = day.summary;
   this.time = new Date(day.time * 1000).toString().slice(0,15);
   dailySummaries.push(this);
+}
+//////////////////////////////////////////////
+function errorHandler(error, request, response){
+  response.status(500).send(error)
 }
 
 //turn it on//
