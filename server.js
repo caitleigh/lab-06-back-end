@@ -3,6 +3,7 @@
 // require the libraries //
 const express = require('express');
 require('dotenv').config();
+const superagent = require('superagent');
 const cors = require('cors')
 
 const app = express();
@@ -14,19 +15,26 @@ app.use(cors());
 //Routes//
 // app.get('/location', locationHandler)
 // app.get('/weather', weatherHandler);
-// app.get(errorHandler);
+// app.use(errorHandler);
+// app.use('*', error);
 
 //////LOCATION///////
 app.get('/location', (request, response) => {
   try {
     const city = request.query.city;
-    const geoData = require('./data/geo.json');
-    const geoDataResults = geoData[0];
-    const location = new Location(city, geoDataResults)
-    response.status(200).send(location);
+    let key = process.env.GEOCODE_API_KEY;
+    const url = `https://us1.locationiq.com/v1/search.php?key=${key}&q=${city}&format=json&limit=1`;
 
-  } catch(error) {
-    errorHandler('So sorry, something went wrong.', response)
+    // const geoData = require('./data/geo.json');
+
+    superagent.get(url)
+      .then( data => {
+        const geoDataResults = data.body[0];
+        const location = new Location(city, geoDataResults)
+        response.status(200).send(location);
+      })}
+  catch(error){
+    errorHandler('So sorry, something went wrong.', request, response)
   }
 });
 
@@ -45,7 +53,6 @@ app.get('/weather', (request, response)=> {
     const geoWeather = require('./data/darksky.json');
     // geoWeather.daily.data.forEach(day => {
     //   dailySummaries.push(new DailySummaries(day));
-
     let dailySummaries = geoWeather.daily.data;
     const data = dailySummaries.map(day => {
       return new DailySummaries(day);
@@ -64,6 +71,10 @@ function DailySummaries(day) {
 //////////////////////////////////////////////
 function errorHandler(string, response){
   response.status(500).send(string)
+}
+
+function error(request, response) {
+  response.status(404).send('???')
 }
 
 //turn it on//
