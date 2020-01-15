@@ -14,10 +14,10 @@ app.use(cors());
 //Routes//
 // app.get('/location', locationHandler)
 // app.get('/weather', weatherHandler);
-app.use(errorHandler);
+// app.use(errorHandler);
 
 //////LOCATION///////
-app.get('location', (request, response) => {
+app.get('/location', (request, response) => {
   try {
     const city = request.query.city;
     const geoData = require('./data/geo.json');
@@ -26,7 +26,7 @@ app.get('location', (request, response) => {
     response.status(200).send(location);
 
   } catch(error) {
-    errorHandler('So sorry, something went wrong.', request, response);
+    errorHandler('So sorry, something went wrong.', response)
   }
 });
 
@@ -49,7 +49,7 @@ app.get('/weather', (request, response)=> {
       response.status(200).send(dailySummaries);
     })
   } catch (error){
-    errorHandler('So sorry, something went wrong.', request, response);
+    errorHandler('So sorry, something went wrong.', response)
   }
 });
 
@@ -59,8 +59,8 @@ function DailySummaries(day) {
   dailySummaries.push(this);
 }
 //////////////////////////////////////////////
-function errorHandler(error, request, response){
-  response.status(500).send(error)
+function errorHandler(string, response){
+  response.status(500).send(string)
 }
 
 //turn it on//
