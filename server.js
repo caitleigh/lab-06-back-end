@@ -14,7 +14,7 @@ app.use(cors());
 //Routes//
 // app.get('/location', locationHandler)
 // app.get('/weather', weatherHandler);
-// app.use(errorHandler);
+// app.get(errorHandler);
 
 //////LOCATION///////
 app.get('/location', (request, response) => {
@@ -40,14 +40,17 @@ function Location(city, locationData){
 /////Weather//////
 const dailySummaries = []
 app.get('/weather', (request, response)=> {
-//   let city = request.query.city;
   try {
+    // let city = request.query.city;
     const geoWeather = require('./data/darksky.json');
-    geoWeather.daily.data.forEach(day => {
-      dailySummaries.push(new DailySummaries(day));
+    // geoWeather.daily.data.forEach(day => {
+    //   dailySummaries.push(new DailySummaries(day));
 
-      response.status(200).send(dailySummaries);
+    let dailySummaries = geoWeather.daily.data;
+    const data = dailySummaries.map(day => {
+      return new DailySummaries(day);
     })
+    response.status(200).send(data);
   } catch (error){
     errorHandler('So sorry, something went wrong.', response)
   }
