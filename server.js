@@ -73,9 +73,9 @@ function errorHandler(string, response){
   response.status(500).send(string)
 }
 
-function error(request, response) {
-  response.status(404).send('???')
-}
+// function error(request, response) {
+//   response.status(404).send('???')
+// }
 
 //turn it on//
 app.listen(PORT, () => {
