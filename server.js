@@ -29,7 +29,8 @@ app.get('/location', (request, response) => {
         const geoDataResults = data.body[0];
         const location = new Location(city, geoDataResults)
         response.status(200).send(location);
-      })}
+      })
+  }
   catch(error){
     errorHandler('So sorry, something went wrong.', request, response)
   }
@@ -43,33 +44,35 @@ function Location(city, locationData){
 }
 
 /////Weather//////
-const dailySummaries = []
+// const dailySummaries = []
 app.get('/weather', (request, response)=> {
   try {
-    // let city = request.query.city;
-    const geoWeather = require('./data/darksky.json');
-    let dailySummaries = geoWeather.daily.data;
-    const data = dailySummaries.map(day => {
-      return new DailySummaries(day);
-    })
-    response.status(200).send(data);
+    let key = process.env.WEATHER_API_KEY;
+    let latitude = request.query.latitude;
+    let longitude = request.query.longitude;
+    const url = `https://api.darksky.net/forecast/${key}/${latitude},${longitude}`;
+
+    superagent.get(url)
+      .then(data => {
+        let weatherSummaries = data.body.daily.data.map(day => {
+          return new DailySummaries(day);
+        });
+        console.log('weatherSummaries');
+        response.status(200).send(weatherSummaries);
+      });
   } catch (error){
-    errorHandler('So sorry, something went wrong.', response)
+    errorHandler('So sorry, something went wrong.',request, response)
   }
 });
 
 function DailySummaries(day) {
   this.forecast = day.summary;
   this.time = new Date(day.time * 1000).toString().slice(0,15);
-  dailySummaries.push(this);
+  // dailySummaries.push(this);
 }
 //////////////////////////////////////////////
 function errorHandler(string, response){
   response.status(500).send(string)
-}
-
-function errorNoResponse(request, response) {
-  response.status(404).send('???')
 }
 
 //turn it on//

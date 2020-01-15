@@ -86,13 +86,13 @@ Finish time: 12:08pm
 
 Actual time needed to complete: 58 minutes
 
-### Number and name of feature: #7
+### Number and name of feature: #7 Adding weather API 
 
 Estimate of time needed to complete: 1 hour
 
-Start time: 
+Start time: 12:10pm
 
-Finish time: 
+Finish time: 12:
 
 Actual time needed to complete: 
 
