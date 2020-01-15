@@ -16,7 +16,6 @@ app.use(cors());
 // app.get('/location', locationHandler)
 // app.get('/weather', weatherHandler);
 // app.use(errorHandler);
-// app.use('*', error);
 
 //////LOCATION///////
 app.get('/location', (request, response) => {
@@ -25,14 +24,13 @@ app.get('/location', (request, response) => {
     let key = process.env.GEOCODE_API_KEY;
     const url = `https://us1.locationiq.com/v1/search.php?key=${key}&q=${city}&format=json&limit=1`;
 
-    // const geoData = require('./data/geo.json');
-
     superagent.get(url)
       .then( data => {
         const geoDataResults = data.body[0];
         const location = new Location(city, geoDataResults)
         response.status(200).send(location);
-      })}
+      })
+  }
   catch(error){
     errorHandler('So sorry, something went wrong.', request, response)
   }
@@ -46,36 +44,36 @@ function Location(city, locationData){
 }
 
 /////Weather//////
-const dailySummaries = []
+// const dailySummaries = []
 app.get('/weather', (request, response)=> {
   try {
-    // let city = request.query.city;
-    const geoWeather = require('./data/darksky.json');
-    // geoWeather.daily.data.forEach(day => {
-    //   dailySummaries.push(new DailySummaries(day));
-    let dailySummaries = geoWeather.daily.data;
-    const data = dailySummaries.map(day => {
-      return new DailySummaries(day);
-    })
-    response.status(200).send(data);
+    let key = process.env.WEATHER_API_KEY;
+    let latitude = request.query.latitude;
+    let longitude = request.query.longitude;
+    const url = `https://api.darksky.net/forecast/${key}/${latitude},${longitude}`;
+
+    superagent.get(url)
+      .then(data => {
+        let weatherSummaries = data.body.daily.data.map(day => {
+          return new DailySummaries(day);
+        });
+        console.log('weatherSummaries');
+        response.status(200).send(weatherSummaries);
+      });
   } catch (error){
-    errorHandler('So sorry, something went wrong.', response)
+    errorHandler('So sorry, something went wrong.',request, response)
   }
 });
 
 function DailySummaries(day) {
   this.forecast = day.summary;
   this.time = new Date(day.time * 1000).toString().slice(0,15);
-  dailySummaries.push(this);
+  // dailySummaries.push(this);
 }
 //////////////////////////////////////////////
 function errorHandler(string, response){
   response.status(500).send(string)
 }
-
-// function error(request, response) {
-//   response.status(404).send('???')
-// }
 
 //turn it on//
 app.listen(PORT, () => {
