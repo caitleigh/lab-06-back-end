@@ -1,7 +1,7 @@
 # City Explorer
 
 **Author**: Cait Rowland
-**Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
+**Version**: 1.0.0
 
 ## Overview
 <!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
@@ -22,6 +22,8 @@
 Jan 14, 2020 - buddy programing with Cindy Weiss(https://github.com/cindyweiss) & Andrew Kyllo (https://github.com/kyllo34)
 
 Jan 15, 2020 - buddy programming with Ally Reyes (https://github.com/areyes986)
+
+Jan 16th, 2020 - buddy programing with Ken Dickey & Harlen Lopez
 -->
 
 
@@ -101,6 +103,26 @@ Actual time needed to complete: 50 minutes
 Estimate of time needed to complete: 1 hour
 
 Start time: 
+
+Finish time: 
+
+Actual time needed to complete: 
+
+### Number and name of feature: #9 Database 
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 11am
+
+Finish time: 12pm
+
+Actual time needed to complete: 1 hour 
+
+### Number and name of feature: #10 Server 
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 12:15pm
 
 Finish time: 
 
