@@ -92,9 +92,9 @@ Estimate of time needed to complete: 1 hour
 
 Start time: 12:10pm
 
-Finish time: 12:
+Finish time: 12:55
 
-Actual time needed to complete: 
+Actual time needed to complete: 50 minutes
 
 ### Number and name of feature: #8
 

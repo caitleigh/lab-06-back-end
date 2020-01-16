@@ -12,10 +12,14 @@ const PORT = process.env.PORT || 3001;
 //the policeperson of our server - allows our server to talk to the frontend//
 app.use(cors());
 
+// let locations = {};
+
 //Routes//
 // app.get('/location', locationHandler)
 // app.get('/weather', weatherHandler);
 // app.use(errorHandler);
+// app.use('*', noResponseError);
+
 
 //////LOCATION///////
 app.get('/location', (request, response) => {
@@ -28,6 +32,7 @@ app.get('/location', (request, response) => {
       .then( data => {
         const geoDataResults = data.body[0];
         const location = new Location(city, geoDataResults)
+        // locations[url] = location;
         response.status(200).send(location);
       })
   }
@@ -57,7 +62,6 @@ app.get('/weather', (request, response)=> {
         let weatherSummaries = data.body.daily.data.map(day => {
           return new DailySummaries(day);
         });
-        console.log('weatherSummaries');
         response.status(200).send(weatherSummaries);
       });
   } catch (error){
@@ -70,9 +74,42 @@ function DailySummaries(day) {
   this.time = new Date(day.time * 1000).toString().slice(0,15);
   // dailySummaries.push(this);
 }
+
+////////EVENTS/////////////
+
+// http://api.eventful.com/rest/events/search?...&where=${location.latitude},${location.longitude}&within=5`
+
+// https://eventful.com/oauth/authoriz
+// app.get('/events', (request, response) => {
+//   try {
+//     let latitude = request.query.latitude;
+//     let longitude = request.query.longitude;
+//   }
+
+
+// })
+
+// {
+//   "link": "http://seattle.eventful.com/events/geekzonehosting-raspberry-pi-jam-session-code-c-/E0-001-121109275-3?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+//   "name": "GeekZoneHosting Raspberry Pi Jam Session & Code Carnival 2019",
+//   "event_date": "Sat Dec 7 2019",
+//   "summary": "Join fellow coders, builders, and Raspberry Pi makers in an 8 hour all day event Jam Session builder and code-a-thone to celebrate computer science education week 2019."
+// },
+
+// function Event(city, ){
+//   this.link = link;
+//   this.name =
+//   this.event_date =
+//   this.summary =
+// }
+
 //////////////////////////////////////////////
 function errorHandler(string, response){
   response.status(500).send(string)
+}
+
+function noResponseError(request, response){
+  response.status(404).send('huh?');
 }
 
 //turn it on//
