@@ -17,37 +17,14 @@ client.on('error', err => console.error(err));
 //the policeperson of our server - allows our server to talk to the frontend//
 app.use(cors());
 
-// let locations = {};
 
 //Routes//
-// app.get('/location', locationHandler)
+app.get('/location', locationHandler);
 app.get('/weather', weatherHandler);
-// app.use(errorHandler);
-// app.use('*', noResponseError);
 app.get('/events', eventHandler);
 
-////SQL/////
-// app.get('/add', (request, response)=> {
-//   let search_query = request.query.search_query;
-//   let formatted_query = request.query.formatted_query;
-//   let latitude = request.query.latitude;
-//   let longitude = request.query.longitude;
-//   console.log('search_query: ', search_qry);
-//   console.log('formatted query: ', formatted_query);
-//   console.log('latitude: ', latitude);
-//   console.log('longitude: ', longitude);
-
-//   let sql = 'INSERT INTO locations (search_query, formatted_query, latitude, longitude) VALUES ( $1, $2, $3, $4);';
-//   let safeValues = [search_query, formatted_query, latitude, longitude];
-//   client.query(sql, safeValues)
-//     .then(results => {
-//       response.status(200).json(results)
-//     })
-//     .catch(error => console.error('error ', error));
-// });
-
 //////LOCATION///////
-app.get('/location', (request, response) => {
+function locationHandler (request, response) {
   const city = request.query.city;
 
   let sql = 'SELECT * FROM locations WHERE search_query=$1;';
@@ -79,7 +56,7 @@ app.get('/location', (request, response) => {
           });
       }
     })
-});
+}
 
 
 function Location(city, locationData){
@@ -90,7 +67,6 @@ function Location(city, locationData){
 }
 
 /////Weather//////
-// const dailySummaries = []
 
 function weatherHandler (request, response) {
   let key = process.env.WEATHER_API_KEY;
@@ -135,26 +111,6 @@ function eventHandler(request, response) {
       errorHandler('So sorry, something went wrong.', request, response)
     })
 }
-
-// app.get('/events', (request, response) => {
-//   try {
-//     let search_query = request.query.search_qeury;
-//     console.log('search q: ', search_query);
-//     let key = process.env.EVENTFUL_API_KEY;
-//     const url = `http://api.eventful.com/json/events/search?location=${search_query}&app_key=${key}`;
-//     console.log('url:', url);
-//     superagent.get(url)
-//       .then(data => {
-//         let parse = JSON.parse(data.text);
-//         let events = parse.events;
-//         let eventInfo = events.map (val => {
-//           return new Event(val);
-//         });
-//         response.status(200).send(eventInfo);
-//       })}catch(error){
-//     errorHandler('So sorry, something went wrong', request, response);
-//   }
-// });
 
 /// Constructor function for events///
 function Event(eventData){
