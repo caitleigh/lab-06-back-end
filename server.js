@@ -6,6 +6,7 @@ require('dotenv').config();
 const superagent = require('superagent');
 const cors = require('cors');
 const pg = require('pg');
+const yelp = require('yelp-fusion');
 const PORT = process.env.PORT || 3001;
 const app = express();
 
@@ -23,6 +24,7 @@ app.get('/location', locationHandler);
 app.get('/weather', weatherHandler);
 app.get('/events', eventHandler);
 app.get('/movies', movieHandler);
+app.get('/yelp', yelpHandler);
 
 //////LOCATION///////
 function locationHandler (request, response) {
@@ -124,8 +126,6 @@ function Event(eventData){
 
 ///////////// MOVIES /////////////////////
 
-
-////Movie Constuructor function
 function movieHandler (request, response) {
   let key= process.env.MOVIE_API_KEY;
   let search_query = request.query.search_query;
@@ -144,7 +144,7 @@ function movieHandler (request, response) {
     })
 }
 
-
+////Movie Constuructor function////
 function Movie(movieData){
   this.title = movieData.title;
   this.overview = movieData.overview;
@@ -153,6 +153,37 @@ function Movie(movieData){
   this.image_url = `https://image.tmdb.org/t/p/w500/${movieData.poster_path}`;
   this.popularity = movieData.popularity;
   this.released_on = movieData.release_date;
+}
+
+//////////YELP////////
+function yelpHandler (response, request) {
+  let key= process.env.YELP_API_KEY;
+  let search_query = request.query.search_query;
+
+  const yelpURL =`https://api.yelp.com/v3/businesses/search?category=restaurants&location=${search_query}`;
+
+  superagent
+    .get(yelpURL)
+    .set('Authorization', `${key}`)
+    .then (yelpData => {
+      console.log('yelp data', yelpData);
+      let allYelpInfo = yelpData.body.businesses.map (val => {
+        return new Yelp(val);
+      })
+      response.status(200).send(allYelpInfo)
+    })
+    .catch ((error) => {
+      errorHandler('So sorry, something went wrong.', request, response)
+    })
+}
+
+///////yelp constructor function//////
+function Yelp(yelpData){
+  this.name = yelpData.name;
+  this.image_url = yelpData.image_url;
+  this.price = yelpData.price;
+  this.rating = yelpData.rating;
+  this.url = yelpData.url;
 }
 
 //////////////////////////////////////////////
