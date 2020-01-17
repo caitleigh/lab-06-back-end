@@ -22,6 +22,7 @@ app.use(cors());
 app.get('/location', locationHandler);
 app.get('/weather', weatherHandler);
 app.get('/events', eventHandler);
+app.get('/movies', movieHandler);
 
 //////LOCATION///////
 function locationHandler (request, response) {
@@ -121,6 +122,38 @@ function Event(eventData){
 }
 
 
+///////////// MOVIES /////////////////////
+
+
+////Movie Constuructor function
+function movieHandler (request, response) {
+  let key= process.env.MOVIE_API_KEY;
+  let search_query = request.query.search_query;
+
+  const movieDataUrl = `https://api.themoviedb.org/3/search/movie?api_key=${key}&language=en-US&query=${search_query} `;
+
+  superagent.get(movieDataUrl)
+    .then(movieData => {
+      let allMovieData = movieData.body.results.map(val => {
+        return new Movie(val);
+      });
+      response.status(200).send(allMovieData);
+    })
+    .catch ((error) => {
+      errorHandler('So sorry, something went wrong.', request, response)
+    })
+}
+
+
+function Movie(movieData){
+  this.title = movieData.title;
+  this.overview = movieData.overview;
+  this.average_votes = movieData.vote_average;
+  this.total_votes = movieData.vote_count;
+  this.image_url = `https://image.tmdb.org/t/p/w500/${movieData.poster_path}`;
+  this.popularity = movieData.popularity;
+  this.released_on = movieData.release_date;
+}
 
 //////////////////////////////////////////////
 function errorHandler(error, request, response){
@@ -130,10 +163,6 @@ function errorHandler(error, request, response){
 app.get('*', (request, response) => {
   response.status(404).send('this route does not exist');
 })
-
-// function noResponseError(request, response){
-//   response.status(404).send('huh?');
-// }
 
 //turn it on//
 client.connect()
