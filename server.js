@@ -155,7 +155,7 @@ function Movie(movieData){
 }
 
 //////////YELP////////
-function yelpHandler (response, request) {
+function yelpHandler (request, response) {
   let key = process.env.YELP_API_KEY;
   const search_query = request.query.search_query;
 
@@ -165,11 +165,12 @@ function yelpHandler (response, request) {
     .get(yelpURL)
     .set('Authorization', `Bearer ${key}`)
     .then (yelpData => {
-      console.log('yelp data', yelpData);
+
       let allYelpInfo = JSON.parse(yelpData.text);
-      let localYelp = allYelpInfo.business.map(yelpData => {
-        return new Yelp(yelpData);
+      let localYelp = allYelpInfo.businesses.map(val => {
+        return new Yelp(val);
       })
+      console.log('!!!!', localYelp);
       response.status(200).send(localYelp);
     })
     .catch (() => {
