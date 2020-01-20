@@ -126,4 +126,24 @@ Start time: 12:15pm
 
 Finish time: 
 
+Actual time needed to complete: Finished in class 
+
+### Number and name of feature: #11 Movie 
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 9:30am
+
+Finish time: 11:15am
+
+Actual time needed to complete: 1 hour 45 minute
+
+### Number and name of feature: #12 Yelp 
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 11:15am
+
+Finish time: 
+
 Actual time needed to complete: 
