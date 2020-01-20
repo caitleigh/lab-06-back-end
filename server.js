@@ -6,7 +6,6 @@ require('dotenv').config();
 const superagent = require('superagent');
 const cors = require('cors');
 const pg = require('pg');
-const yelp = require('yelp-fusion');
 const PORT = process.env.PORT || 3001;
 const app = express();
 
@@ -55,7 +54,7 @@ function locationHandler (request, response) {
 
             response.status(200).send(location);
           })
-          .catch ((error) => { errorHandler('So sorry, something went wrong.', request, response)
+          .catch (() => { errorHandler('So sorry, something went wrong.', request, response)
           });
       }
     })
@@ -84,7 +83,7 @@ function weatherHandler (request, response) {
       })
       response.status(200).send(weatherSummaries);
     })
-    .catch ((error) => {
+    .catch (() => {
       errorHandler('So sorry, something went wrong.', request, response)
     })
 }
@@ -110,7 +109,7 @@ function eventHandler(request, response) {
       })
       response.status(200).send(localEvent);
     })
-    .catch ((error) => {
+    .catch (() => {
       errorHandler('So sorry, something went wrong.', request, response)
     })
 }
@@ -139,7 +138,7 @@ function movieHandler (request, response) {
       });
       response.status(200).send(allMovieData);
     })
-    .catch ((error) => {
+    .catch (() => {
       errorHandler('So sorry, something went wrong.', request, response)
     })
 }
@@ -157,22 +156,23 @@ function Movie(movieData){
 
 //////////YELP////////
 function yelpHandler (response, request) {
-  let key= process.env.YELP_API_KEY;
-  let search_query = request.query.search_query;
+  let key = process.env.YELP_API_KEY;
+  const search_query = request.query.search_query;
 
   const yelpURL =`https://api.yelp.com/v3/businesses/search?category=restaurants&location=${search_query}`;
 
   superagent
     .get(yelpURL)
-    .set('Authorization', `${key}`)
+    .set('Authorization', `Bearer ${key}`)
     .then (yelpData => {
       console.log('yelp data', yelpData);
-      let allYelpInfo = yelpData.body.businesses.map (val => {
-        return new Yelp(val);
+      let allYelpInfo = JSON.parse(yelpData.text);
+      let localYelp = allYelpInfo.business.map(yelpData => {
+        return new Yelp(yelpData);
       })
-      response.status(200).send(allYelpInfo)
+      response.status(200).send(localYelp);
     })
-    .catch ((error) => {
+    .catch (() => {
       errorHandler('So sorry, something went wrong.', request, response)
     })
 }
